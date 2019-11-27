@@ -1,6 +1,6 @@
 #
 # RNAToAminoAcids.py
-# Bat, Cat, Rat, Buntt
+# Bat, Cat, Rat, Bunt
 #
 
 translations = {
