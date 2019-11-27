@@ -39,11 +39,11 @@ translations = {
     'CAC': 'H',
     'AAC': 'N',
     'GAC': 'D',
-    'UAA': 'Stop',
+    'UAA': 'Z',
     'CAA': 'Q',
     'AAA': 'K',
     'GAA': 'E',
-    'UAG': 'Stop',
+    'UAG': 'Z',
     'CAG': 'Q',
     'AAG': 'K',
     'GAG': 'E',
@@ -55,7 +55,7 @@ translations = {
     'CGC': 'R',
     'AGC': 'S',
     'GGC': 'G',
-    'UGA': 'Stop',
+    'UGA': 'Z',
     'CGA': 'R',
     'AGA': 'R',
     'GGA': 'G',
@@ -64,6 +64,38 @@ translations = {
     'AGG': 'R',
     'GGG': 'G'
 }
+
+penicillin =  'MKNRNRMIVNCVTASLMYYWSLPALAEQSSSEIKIVRDEYGMPHIYANDTWHLFYGYGYVVAQDRLFQMEMARRSTQGTVAEVLGKDFVKFDKDIRRNYWPDAIRAQIAALSPEDMSILQGYADGMNAWIDKVNTNPETLLPKQFNTFGFTPKRWEPFDVAMIFVGTMANRFSDSTSEIDNLALLTALKDKYGVSQGMAVFNQLKWLVNPSAPTTIAVQESNYPLKFNQQNSQTAALLPRYDLPAPMLDRPAKGADGALLALTAGKNRETIAAQFAQGGANGLAGYPTTSNMWVIGKSKAQDAKAIMVNGPQFGWYAPAYTYGIGLHGAGYDVTGNTPFAYPGLVFGHNGVISWGSTAGFGDDVDIFAERLSAEKPGYYLHNGKWVKMLSREETITVKNGQAETFTVWRTVHGNILQTDQTTQTAYAKSRAWDGKEVASLLAWTHQMKAKNWQEWTQQAAKQALTINWYYADVNGNIGYHTGAYPDRQSGHDPRLPVPGTGKWDWKGLLPFEMNPKVYNPQSGYIANWNNSPQKDYPASDLFAFLWGGADRVTEIDRLLEQKPRLTADQAWDVIRQTSRQDLNLRLFLPTLQAATSGLTQSDPRRQLVETLTRWDGINLLNDDGKTWQQPGSAILNVWLTSMLKRTVVAAVPMPFDKWYSASGYETTQDGPTGSLNISVGAKILYEAVQGDKSPIPQAVDLFAGKPQQEVVLAALEDTWETLSKRYGNNVSNWKTPAMALTFRANNFFGVPQAAAEETRHQAEYQNRGTENDMIVFSPTTSDRPVLAWDVVAPGQSGFIAPDGTVDKHYEDQLKMYENFGRKSLWLTKQDVEAHKESQEVLHVQR'
+
+
+
+
+aminoAcids = list(translations.keys())
+RNA = list(translations.values())
+
+def findRNA(keys, values, protein):
+    possible = []
+    for i in range(len(values)):
+        if values[i] == protein:
+            possible.append(keys[i])
+    return(possible)
+
+print(findRNA(aminoAcids, RNA, "Z"))
+
+
+def posRNAParts(protein, dict):
+    protein = protein + 'Z'
+    keys = list(dict.keys())
+    values = list(dict.values())
+    possibles = []
+    for c in protein:
+        possible = findRNA(keys, values, c)
+        possibles.append(possible)
+    print(possibles)
+
+#print(posDNA(penicillin, translations))
+
+
 
 
 def rnaToProtein(rna,dict):
@@ -81,4 +113,10 @@ output = rnaToProtein('AUGUUUCCGAUGGGGGGCUUCAUGUACCACAUCAGAGACCUGUAUGGCCUCGUCAGA
 answ = ''
 for i in range(len(output)):
     answ = answ + output[i]
-print(answ)
+#print(answ)
+
+
+
+
+
+#print(aminoAcids[RNA.index('Stop')])
