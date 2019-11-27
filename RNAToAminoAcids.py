@@ -1,3 +1,8 @@
+#
+# RNAToAminoAcids.py
+# Bat, Cat, Rat
+#
+
 translations = {
     'UUU': 'F',
     'CUU': 'L',
