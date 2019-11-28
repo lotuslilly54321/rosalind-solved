@@ -74,23 +74,24 @@ translations = {
 
 penicillin =  'MKNRNRMIVNCVTASLMYYWSLPALAEQSSSEIKIVRDEYGMPHIYANDTWHLFYGYGYVVAQDRLFQMEMARRSTQGTVAEVLGKDFVKFDKDIRRNYWPDAIRAQIAALSPEDMSILQGYADGMNAWIDKVNTNPETLLPKQFNTFGFTPKRWEPFDVAMIFVGTMANRFSDSTSEIDNLALLTALKDKYGVSQGMAVFNQLKWLVNPSAPTTIAVQESNYPLKFNQQNSQTAALLPRYDLPAPMLDRPAKGADGALLALTAGKNRETIAAQFAQGGANGLAGYPTTSNMWVIGKSKAQDAKAIMVNGPQFGWYAPAYTYGIGLHGAGYDVTGNTPFAYPGLVFGHNGVISWGSTAGFGDDVDIFAERLSAEKPGYYLHNGKWVKMLSREETITVKNGQAETFTVWRTVHGNILQTDQTTQTAYAKSRAWDGKEVASLLAWTHQMKAKNWQEWTQQAAKQALTINWYYADVNGNIGYHTGAYPDRQSGHDPRLPVPGTGKWDWKGLLPFEMNPKVYNPQSGYIANWNNSPQKDYPASDLFAFLWGGADRVTEIDRLLEQKPRLTADQAWDVIRQTSRQDLNLRLFLPTLQAATSGLTQSDPRRQLVETLTRWDGINLLNDDGKTWQQPGSAILNVWLTSMLKRTVVAAVPMPFDKWYSASGYETTQDGPTGSLNISVGAKILYEAVQGDKSPIPQAVDLFAGKPQQEVVLAALEDTWETLSKRYGNNVSNWKTPAMALTFRANNFFGVPQAAAEETRHQAEYQNRGTENDMIVFSPTTSDRPVLAWDVVAPGQSGFIAPDGTVDKHYEDQLKMYENFGRKSLWLTKQDVEAHKESQEVLHVQR'
 
-with open('chr1.FASTA', 'r') as handle:
-    for record in SeqIO.parse(handle, 'fasta'):
-        identifier = record.id
-        description = record.description
-        sequence = record.seq
+# with open('chr1.FASTA', 'r') as chr1_file:
+#     for record in SeqIO.parse(chr1_file, 'fasta'):
+#         identifier = record.id
+#         description = record.description
+#         chr1 = record.seq
+
 #print(sequence)
-sequenceTest = sequence + penicillin
-for i in range(len(sequenceTest)-(len(penicillin)-1)):
-    similar = 0
-    if sequenceTest[i] == penicillin[0]:
-        for j in range(0,len(penicillin)-1):
-            if sequenceTest[i+j] == penicillin[j]:
-                similar = similar + 1
-        if similar == len(penicillin)-1:
-            pass#print('Y')
-        else:
-            pass#print('N')
+# sequenceTest = chr1 + penicillin
+# for i in range(len(sequenceTest)-(len(penicillin)-1)):
+#     similar = 0
+#     if sequenceTest[i] == penicillin[0]:
+#         for j in range(0,len(penicillin)-1):
+#             if sequenceTest[i+j] == penicillin[j]:
+#                 similar = similar + 1
+#         if similar == len(penicillin)-1:
+#             pass#print('Y')
+#         else:
+#             pass#print('N')
 
 def findProtein(chromosome, protein):
     for i in range(len(chromosome) - (len(protein) - 1)):
@@ -100,9 +101,23 @@ def findProtein(chromosome, protein):
                 if chromosome[i + j] == protein[j]:
                     similar = similar + 1
             if similar == len(protein) - 1:
-                return(True)
-print(findProtein(sequenceTest, penicillin))
+                return(True,i)
+            else:
+                pass
 
+with open('chr2.FASTA', 'r') as chr2_file:
+    for record in SeqIO.parse(chr2_file, 'fasta'):
+        identifier = record.id
+        description = record.description
+        chr2 = record.seq
+        #print(findProtein(chr2, penicillin))
+
+with open('chr3.FASTA', 'r') as chr3_file:
+    for record in SeqIO.parse(chr3_file, 'fasta'):
+        identifier = record.id
+        description = record.description
+        chr3 = record.seq
+        print(findProtein(chr3, penicillin))
 
 aminoAcids = list(translations.keys())
 RNA = list(translations.values())
