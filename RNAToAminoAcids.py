@@ -5,6 +5,39 @@
 
 from Bio import SeqIO
 
+# Read all files
+with open('chr1.FASTA', 'r') as chr1_file:
+    for record in SeqIO.parse(chr1_file, 'fasta'):
+        identifier = record.id
+        description = record.description
+        chr1 = record.seq
+
+with open('chr2.FASTA', 'r') as chr2_file:
+    for record in SeqIO.parse(chr2_file, 'fasta'):
+        identifier = record.id
+        description = record.description
+        chr2 = record.seq
+        #print(findProtein(chr2, penicillin))
+
+with open('chr3.FASTA', 'r') as chr3_file:
+    for record in SeqIO.parse(chr3_file, 'fasta'):
+        identifier = record.id
+        description = record.description
+        chr3 = record.seq
+        #print(findProtein(chr3, penicillin))
+
+with open('A6N339.fasta','r') as pcbAB_file:
+    for record in SeqIO.parse(pcbAB_file, 'fasta'):
+        identifier = record.id
+        description = record.description
+        pcbAB = record.seq
+        #print(findProtein(pcbAB, penicillin))
+
+penicillin =  'MKNRNRMIVNCVTASLMYYWSLPALAEQSSSEIKIVRDEYGMPHIYANDTWHLFYGYGYVVAQDRLFQMEMARRSTQGTVAEVLGKDFVKFDKDIRRNYWPDAIRAQIAALSPEDMSILQGYADGMNAWIDKVNTNPETLLPKQFNTFGFTPKRWEPFDVAMIFVGTMANRFSDSTSEIDNLALLTALKDKYGVSQGMAVFNQLKWLVNPSAPTTIAVQESNYPLKFNQQNSQTAALLPRYDLPAPMLDRPAKGADGALLALTAGKNRETIAAQFAQGGANGLAGYPTTSNMWVIGKSKAQDAKAIMVNGPQFGWYAPAYTYGIGLHGAGYDVTGNTPFAYPGLVFGHNGVISWGSTAGFGDDVDIFAERLSAEKPGYYLHNGKWVKMLSREETITVKNGQAETFTVWRTVHGNILQTDQTTQTAYAKSRAWDGKEVASLLAWTHQMKAKNWQEWTQQAAKQALTINWYYADVNGNIGYHTGAYPDRQSGHDPRLPVPGTGKWDWKGLLPFEMNPKVYNPQSGYIANWNNSPQKDYPASDLFAFLWGGADRVTEIDRLLEQKPRLTADQAWDVIRQTSRQDLNLRLFLPTLQAATSGLTQSDPRRQLVETLTRWDGINLLNDDGKTWQQPGSAILNVWLTSMLKRTVVAAVPMPFDKWYSASGYETTQDGPTGSLNISVGAKILYEAVQGDKSPIPQAVDLFAGKPQQEVVLAALEDTWETLSKRYGNNVSNWKTPAMALTFRANNFFGVPQAAAEETRHQAEYQNRGTENDMIVFSPTTSDRPVLAWDVVAPGQSGFIAPDGTVDKHYEDQLKMYENFGRKSLWLTKQDVEAHKESQEVLHVQR'
+
+
+#translations dict from RNA to Amino Acids
+    #Stop codons changed to Z for easier readability
 translations = {
     'UUU': 'F',
     'CUU': 'L',
@@ -72,27 +105,10 @@ translations = {
     'GGG': 'G'
 }
 
-penicillin =  'MKNRNRMIVNCVTASLMYYWSLPALAEQSSSEIKIVRDEYGMPHIYANDTWHLFYGYGYVVAQDRLFQMEMARRSTQGTVAEVLGKDFVKFDKDIRRNYWPDAIRAQIAALSPEDMSILQGYADGMNAWIDKVNTNPETLLPKQFNTFGFTPKRWEPFDVAMIFVGTMANRFSDSTSEIDNLALLTALKDKYGVSQGMAVFNQLKWLVNPSAPTTIAVQESNYPLKFNQQNSQTAALLPRYDLPAPMLDRPAKGADGALLALTAGKNRETIAAQFAQGGANGLAGYPTTSNMWVIGKSKAQDAKAIMVNGPQFGWYAPAYTYGIGLHGAGYDVTGNTPFAYPGLVFGHNGVISWGSTAGFGDDVDIFAERLSAEKPGYYLHNGKWVKMLSREETITVKNGQAETFTVWRTVHGNILQTDQTTQTAYAKSRAWDGKEVASLLAWTHQMKAKNWQEWTQQAAKQALTINWYYADVNGNIGYHTGAYPDRQSGHDPRLPVPGTGKWDWKGLLPFEMNPKVYNPQSGYIANWNNSPQKDYPASDLFAFLWGGADRVTEIDRLLEQKPRLTADQAWDVIRQTSRQDLNLRLFLPTLQAATSGLTQSDPRRQLVETLTRWDGINLLNDDGKTWQQPGSAILNVWLTSMLKRTVVAAVPMPFDKWYSASGYETTQDGPTGSLNISVGAKILYEAVQGDKSPIPQAVDLFAGKPQQEVVLAALEDTWETLSKRYGNNVSNWKTPAMALTFRANNFFGVPQAAAEETRHQAEYQNRGTENDMIVFSPTTSDRPVLAWDVVAPGQSGFIAPDGTVDKHYEDQLKMYENFGRKSLWLTKQDVEAHKESQEVLHVQR'
+aminoAcids = list(translations.keys())
+RNA = list(translations.values())
 
-# with open('chr1.FASTA', 'r') as chr1_file:
-#     for record in SeqIO.parse(chr1_file, 'fasta'):
-#         identifier = record.id
-#         description = record.description
-#         chr1 = record.seq
-
-#print(sequence)
-# sequenceTest = chr1 + penicillin
-# for i in range(len(sequenceTest)-(len(penicillin)-1)):
-#     similar = 0
-#     if sequenceTest[i] == penicillin[0]:
-#         for j in range(0,len(penicillin)-1):
-#             if sequenceTest[i+j] == penicillin[j]:
-#                 similar = similar + 1
-#         if similar == len(penicillin)-1:
-#             pass#print('Y')
-#         else:
-#             pass#print('N')
-
+# Find a given protein within a chromosome using translated chromosome and protein broken down into amino acids
 def findProtein(chromosome, protein):
     for i in range(len(chromosome) - (len(protein) - 1)):
         similar = 0
@@ -104,23 +120,9 @@ def findProtein(chromosome, protein):
                 return(True,i)
             else:
                 pass
+test = 'AAAAAAAAAAAAA'+pcbAB+'AAAAAAAAAAAAAA'
+print(findProtein(test,pcbAB))
 
-with open('chr2.FASTA', 'r') as chr2_file:
-    for record in SeqIO.parse(chr2_file, 'fasta'):
-        identifier = record.id
-        description = record.description
-        chr2 = record.seq
-        #print(findProtein(chr2, penicillin))
-
-with open('chr3.FASTA', 'r') as chr3_file:
-    for record in SeqIO.parse(chr3_file, 'fasta'):
-        identifier = record.id
-        description = record.description
-        chr3 = record.seq
-        print(findProtein(chr3, penicillin))
-
-aminoAcids = list(translations.keys())
-RNA = list(translations.values())
 
 def findRNA(keys, values, protein):
     possible = []
@@ -128,9 +130,6 @@ def findRNA(keys, values, protein):
         if values[i] == protein:
             possible.append(keys[i])
     return(possible)
-
-#print(findRNA(aminoAcids, RNA, "Z"))
-
 
 def posRNAParts(protein, dict):
     protein = protein + 'Z'
@@ -141,10 +140,6 @@ def posRNAParts(protein, dict):
         possible = findRNA(keys, values, c)
         possibles.append(possible)
     print(possibles)
-
-#print(posDNA(penicillin, translations))
-
-
 
 
 def rnaToProtein(rna,dict):
@@ -162,10 +157,8 @@ output = rnaToProtein('AUGUUUCCGAUGGGGGGCUUCAUGUACCACAUCAGAGACCUGUAUGGCCUCGUCAGA
 answ = ''
 for i in range(len(output)):
     answ = answ + output[i]
-#print(answ)
 
 
 
-
-
-#print(aminoAcids[RNA.index('Stop')])
+#every three correspond to an amino acid found in the FASTA files
+#ooooooooooooooooooooooo
